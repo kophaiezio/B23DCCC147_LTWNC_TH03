@@ -27,77 +27,107 @@ export default async function AdminPage() {
 
   return (
     <div>
-      <h1>Duyệt yêu cầu mượn</h1>
-      <p style={{ margin: '16px 0', fontWeight: 'bold' }}>
-        Chờ duyệt: {pendingLoans.length} | Đã duyệt: {approvedLoans.length} | Từ chối: {rejectedLoans.length}
-      </p>
+      <h1 style={{ color: '#0f172a', marginBottom: '16px' }}>Duyệt yêu cầu mượn</h1>
+
+      <div
+        style={{
+          backgroundColor: '#ffffff',
+          padding: '16px 20px',
+          borderRadius: '8px',
+          border: '1px solid #cbd5e1',
+          marginBottom: '20px',
+          fontWeight: 600,
+          color: '#334155',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+        }}
+      >
+        <span style={{ color: '#b45309' }}>Chờ duyệt: {pendingLoans.length}</span>
+        {' | '}
+        <span style={{ color: '#15803d' }}>Đã duyệt: {approvedLoans.length}</span>
+        {' | '}
+        <span style={{ color: '#b91c1c' }}>Từ chối: {rejectedLoans.length}</span>
+      </div>
 
       {pendingLoans.length === 0 ? (
-        <p>Không có yêu cầu nào đang chờ duyệt.</p>
+        <div style={{ backgroundColor: '#ffffff', padding: '24px', borderRadius: '8px', border: '1px solid #cbd5e1', color: '#64748b' }}>
+          Không có yêu cầu nào đang chờ duyệt.
+        </div>
       ) : (
-        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '16px' }}>
-          <thead>
-            <tr style={{ background: '#eee', textAlign: 'left' }}>
-              <th style={{ padding: '8px', border: '1px solid #ccc' }}>Tên sách</th>
-              <th style={{ padding: '8px', border: '1px solid #ccc' }}>Ngày lấy</th>
-              <th style={{ padding: '8px', border: '1px solid #ccc' }}>Thời hạn</th>
-              <th style={{ padding: '8px', border: '1px solid #ccc' }}>Email người mượn</th>
-              <th style={{ padding: '8px', border: '1px solid #ccc' }}>Thao tác</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pendingLoans.map((loan) => (
-              <tr key={loan.id} style={{ borderBottom: '1px solid #eee' }}>
-                <td style={{ padding: '8px', border: '1px solid #ccc' }}>
-                  {booksMap.get(loan.bookId) ?? `Sách #${loan.bookId}`}
-                </td>
-                <td style={{ padding: '8px', border: '1px solid #ccc' }}>
-                  {formatDate(loan.pickupDate)}
-                </td>
-                <td style={{ padding: '8px', border: '1px solid #ccc' }}>
-                  {TERM_LABEL[loan.term]}
-                </td>
-                <td style={{ padding: '8px', border: '1px solid #ccc' }}>
-                  {loan.userEmail}
-                </td>
-                <td style={{ padding: '8px', border: '1px solid #ccc', whiteSpace: 'nowrap' }}>
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <form action={reviewLoanAction.bind(null, loan.id, 'approved')}>
-                      <button
-                        type="submit"
-                        style={{
-                          backgroundColor: '#28a745',
-                          color: '#fff',
-                          border: 'none',
-                          padding: '6px 12px',
-                          borderRadius: '4px',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        Duyệt
-                      </button>
-                    </form>
-                    <form action={reviewLoanAction.bind(null, loan.id, 'rejected')}>
-                      <button
-                        type="submit"
-                        style={{
-                          backgroundColor: '#dc3545',
-                          color: '#fff',
-                          border: 'none',
-                          padding: '6px 12px',
-                          borderRadius: '4px',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        Từ chối
-                      </button>
-                    </form>
-                  </div>
-                </td>
+        <div style={{ backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #cbd5e1', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+          <table
+            style={{
+              width: '100%',
+              borderCollapse: 'collapse',
+              textAlign: 'left',
+            }}
+          >
+            <thead>
+              <tr style={{ backgroundColor: '#f1f5f9', borderBottom: '1px solid #cbd5e1' }}>
+                <th style={{ padding: '12px 16px', color: '#334155', fontWeight: 600 }}>Tên sách</th>
+                <th style={{ padding: '12px 16px', color: '#334155', fontWeight: 600 }}>Ngày lấy</th>
+                <th style={{ padding: '12px 16px', color: '#334155', fontWeight: 600 }}>Thời hạn</th>
+                <th style={{ padding: '12px 16px', color: '#334155', fontWeight: 600 }}>Email người mượn</th>
+                <th style={{ padding: '12px 16px', color: '#334155', fontWeight: 600 }}>Thao tác</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {pendingLoans.map((loan) => (
+                <tr key={loan.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td style={{ padding: '12px 16px', color: '#0f172a', fontWeight: 500 }}>
+                    {booksMap.get(loan.bookId) ?? `Sách #${loan.bookId}`}
+                  </td>
+                  <td style={{ padding: '12px 16px', color: '#475569' }}>
+                    {formatDate(loan.pickupDate)}
+                  </td>
+                  <td style={{ padding: '12px 16px', color: '#475569' }}>
+                    {TERM_LABEL[loan.term]}
+                  </td>
+                  <td style={{ padding: '12px 16px', color: '#475569' }}>
+                    {loan.userEmail}
+                  </td>
+                  <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <form action={reviewLoanAction.bind(null, loan.id, 'approved')}>
+                        <button
+                          type="submit"
+                          style={{
+                            backgroundColor: '#16a34a',
+                            color: '#ffffff',
+                            border: 'none',
+                            padding: '6px 14px',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            fontWeight: 600,
+                            fontSize: '0.85rem',
+                          }}
+                        >
+                          Duyệt
+                        </button>
+                      </form>
+                      <form action={reviewLoanAction.bind(null, loan.id, 'rejected')}>
+                        <button
+                          type="submit"
+                          style={{
+                            backgroundColor: '#dc2626',
+                            color: '#ffffff',
+                            border: 'none',
+                            padding: '6px 14px',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            fontWeight: 600,
+                            fontSize: '0.85rem',
+                          }}
+                        >
+                          Từ chối
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

@@ -5,12 +5,15 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     <div>
       <div
         style={{
-          padding: '8px 12px',
-          background: '#e9ecef',
-          borderRadius: '4px',
-          marginBottom: '16px',
-          fontSize: '0.9rem',
-          color: '#495057',
+          display: 'inline-block',
+          padding: '6px 14px',
+          backgroundColor: '#e0f2fe',
+          color: '#0369a1',
+          border: '1px solid #bae6fd',
+          borderRadius: '20px',
+          marginBottom: '20px',
+          fontSize: '0.875rem',
+          fontWeight: 600,
         }}
       >
         Khu vực thành viên

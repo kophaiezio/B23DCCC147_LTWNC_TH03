@@ -7,9 +7,36 @@ export default function HomePage() {
   const totalCategories = CATEGORIES.length;
 
   return (
-    <div style={{ padding: '24px 0' }}>
-      <h1>Thư viện khoa CNTT PTIT</h1>
-      <p style={{ margin: '16px 0', fontSize: '1.1rem', color: '#555' }}>
+    <div
+      style={{
+        padding: '40px 24px',
+        maxWidth: '800px',
+        margin: '20px auto',
+        backgroundColor: '#ffffff',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+        textAlign: 'center',
+      }}
+    >
+      <h1
+        style={{
+          fontSize: '2.2rem',
+          fontWeight: 800,
+          color: '#0f172a',
+          marginBottom: '16px',
+        }}
+      >
+        Thư viện khoa CNTT PTIT
+      </h1>
+      <p
+        style={{
+          fontSize: '1.2rem',
+          color: '#334155',
+          fontWeight: 500,
+          marginBottom: '28px',
+        }}
+      >
         {totalBooks} đầu sách · {totalCategories} chuyên mục
       </p>
       <div>
@@ -17,12 +44,14 @@ export default function HomePage() {
           href="/books"
           style={{
             display: 'inline-block',
-            padding: '10px 18px',
-            backgroundColor: '#0066cc',
-            color: '#fff',
+            padding: '12px 28px',
+            backgroundColor: '#0284c7',
+            color: '#ffffff',
+            fontSize: '1.05rem',
+            fontWeight: 600,
             textDecoration: 'none',
-            borderRadius: '4px',
-            fontWeight: 500,
+            borderRadius: '6px',
+            boxShadow: '0 2px 4px rgba(2, 132, 199, 0.3)',
           }}
         >
           Xem danh mục sách

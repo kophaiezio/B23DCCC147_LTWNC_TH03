@@ -47,7 +47,7 @@ export default async function LoansPage({ searchParams }: LoansPageProps) {
 
   return (
     <div>
-      <h1>Sách đã mượn</h1>
+      <h1 style={{ color: '#0f172a', marginBottom: '24px' }}>Sách đã mượn</h1>
 
       {viewer.role === 'student' && (
         <LoanForm
@@ -58,105 +58,148 @@ export default async function LoansPage({ searchParams }: LoansPageProps) {
       )}
 
       {/* (a) Form lọc theo trạng thái */}
-      <form
-        method="GET"
-        action="/loans"
+      <div
         style={{
-          display: 'flex',
-          gap: '12px',
-          alignItems: 'center',
-          margin: '20px 0',
-          padding: '12px',
-          backgroundColor: '#f8f9fa',
-          borderRadius: '4px',
+          backgroundColor: '#ffffff',
+          padding: '16px 20px',
+          borderRadius: '8px',
+          border: '1px solid #cbd5e1',
+          marginBottom: '20px',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
         }}
       >
-        <label htmlFor="status" style={{ fontWeight: 'bold' }}>
-          Trạng thái
-        </label>
-        <select
-          id="status"
-          name="status"
-          defaultValue={status ?? ''}
-          style={{ padding: '6px 10px', borderRadius: '4px', border: '1px solid #ccc' }}
-        >
-          <option value="">Tất cả</option>
-          <option value="pending">Chờ duyệt</option>
-          <option value="approved">Đã duyệt</option>
-          <option value="rejected">Từ chối</option>
-        </select>
-        <button
-          type="submit"
+        <form
+          method="GET"
+          action="/loans"
           style={{
-            padding: '6px 14px',
-            backgroundColor: '#0066cc',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
+            display: 'flex',
+            gap: '12px',
+            alignItems: 'center',
           }}
         >
-          Lọc
-        </button>
-      </form>
+          <label htmlFor="status" style={{ fontWeight: 600, color: '#0f172a' }}>
+            Trạng thái
+          </label>
+          <select
+            id="status"
+            name="status"
+            defaultValue={status ?? ''}
+            style={{
+              padding: '8px 12px',
+              borderRadius: '6px',
+              border: '1px solid #94a3b8',
+              backgroundColor: '#ffffff',
+              color: '#0f172a',
+            }}
+          >
+            <option value="">Tất cả</option>
+            <option value="pending">Chờ duyệt</option>
+            <option value="approved">Đã duyệt</option>
+            <option value="rejected">Từ chối</option>
+          </select>
+          <button
+            type="submit"
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#0284c7',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontWeight: 600,
+            }}
+          >
+            Lọc
+          </button>
+        </form>
+      </div>
 
       {/* (b) Bảng danh sách yêu cầu mượn */}
       {items.length === 0 ? (
-        <p style={{ marginTop: '16px' }}>Không có yêu cầu mượn nào.</p>
+        <div style={{ backgroundColor: '#ffffff', padding: '24px', borderRadius: '8px', border: '1px solid #cbd5e1', color: '#64748b' }}>
+          Không có yêu cầu mượn nào.
+        </div>
       ) : (
-        <table
-          style={{
-            width: '100%',
-            borderCollapse: 'collapse',
-            marginTop: '16px',
-            textAlign: 'left',
-          }}
-        >
-          <thead>
-            <tr style={{ backgroundColor: '#eee', borderBottom: '2px solid #ccc' }}>
-              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Tên sách</th>
-              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Ngày lấy</th>
-              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Thời hạn</th>
-              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Số lượng</th>
-              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Trạng thái</th>
-              {viewer.role === 'student' && (
-                <th style={{ padding: '10px', border: '1px solid #ddd' }}>Thao tác</th>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item) => (
-              <tr key={item.id} style={{ borderBottom: '1px solid #ddd' }}>
-                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{item.bookTitle}</td>
-                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{formatDate(item.pickupDate)}</td>
-                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{TERM_LABEL[item.term]}</td>
-                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{item.quantity} quyển</td>
-                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{STATUS_LABEL[item.status]}</td>
+        <div style={{ backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #cbd5e1', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+          <table
+            style={{
+              width: '100%',
+              borderCollapse: 'collapse',
+              textAlign: 'left',
+            }}
+          >
+            <thead>
+              <tr style={{ backgroundColor: '#f1f5f9', borderBottom: '1px solid #cbd5e1' }}>
+                <th style={{ padding: '12px 16px', color: '#334155', fontWeight: 600 }}>Tên sách</th>
+                <th style={{ padding: '12px 16px', color: '#334155', fontWeight: 600 }}>Ngày lấy</th>
+                <th style={{ padding: '12px 16px', color: '#334155', fontWeight: 600 }}>Thời hạn</th>
+                <th style={{ padding: '12px 16px', color: '#334155', fontWeight: 600 }}>Số lượng</th>
+                <th style={{ padding: '12px 16px', color: '#334155', fontWeight: 600 }}>Trạng thái</th>
                 {viewer.role === 'student' && (
-                  <td style={{ padding: '10px', border: '1px solid #ddd' }}>
-                    {item.status === 'pending' && item.userEmail === viewer.email && (
-                      <form action={cancelLoanAction.bind(null, item.id)}>
-                        <button
-                          type="submit"
-                          style={{
-                            backgroundColor: '#dc3545',
-                            color: '#fff',
-                            border: 'none',
-                            padding: '4px 8px',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          Hủy
-                        </button>
-                      </form>
-                    )}
-                  </td>
+                  <th style={{ padding: '12px 16px', color: '#334155', fontWeight: 600 }}>Thao tác</th>
                 )}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {items.map((item) => (
+                <tr key={item.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td style={{ padding: '12px 16px', color: '#0f172a', fontWeight: 500 }}>{item.bookTitle}</td>
+                  <td style={{ padding: '12px 16px', color: '#475569' }}>{formatDate(item.pickupDate)}</td>
+                  <td style={{ padding: '12px 16px', color: '#475569' }}>{TERM_LABEL[item.term]}</td>
+                  <td style={{ padding: '12px 16px', color: '#475569' }}>{item.quantity} quyển</td>
+                  <td style={{ padding: '12px 16px' }}>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        padding: '4px 10px',
+                        borderRadius: '12px',
+                        fontSize: '0.85rem',
+                        fontWeight: 600,
+                        backgroundColor:
+                          item.status === 'approved'
+                            ? '#dcfce7'
+                            : item.status === 'rejected'
+                            ? '#fee2e2'
+                            : '#fef3c7',
+                        color:
+                          item.status === 'approved'
+                            ? '#15803d'
+                            : item.status === 'rejected'
+                            ? '#b91c1c'
+                            : '#b45309',
+                      }}
+                    >
+                      {STATUS_LABEL[item.status]}
+                    </span>
+                  </td>
+                  {viewer.role === 'student' && (
+                    <td style={{ padding: '12px 16px' }}>
+                      {item.status === 'pending' && item.userEmail === viewer.email && (
+                        <form action={cancelLoanAction.bind(null, item.id)}>
+                          <button
+                            type="submit"
+                            style={{
+                              backgroundColor: '#dc2626',
+                              color: '#ffffff',
+                              border: 'none',
+                              padding: '6px 12px',
+                              borderRadius: '4px',
+                              cursor: 'pointer',
+                              fontWeight: 600,
+                              fontSize: '0.85rem',
+                            }}
+                          >
+                            Hủy
+                          </button>
+                        </form>
+                      )}
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
 
       {/* (c) Phân trang */}
@@ -166,33 +209,34 @@ export default async function LoansPage({ searchParams }: LoansPageProps) {
           gap: '16px',
           alignItems: 'center',
           justifyContent: 'center',
-          marginTop: '20px',
+          marginTop: '24px',
+          fontWeight: 500,
         }}
       >
         {currentPage > 1 ? (
           <Link
             href={`/loans?page=${prevPage}${statusQuery}`}
-            style={{ color: '#0066cc', textDecoration: 'underline' }}
+            style={{ color: '#0284c7', textDecoration: 'underline' }}
           >
             Trước
           </Link>
         ) : (
-          <span style={{ color: '#888' }}>Trước</span>
+          <span style={{ color: '#94a3b8' }}>Trước</span>
         )}
 
-        <span>
+        <span style={{ color: '#334155' }}>
           Trang {currentPage}/{totalPages}
         </span>
 
         {currentPage < totalPages ? (
           <Link
             href={`/loans?page=${nextPage}${statusQuery}`}
-            style={{ color: '#0066cc', textDecoration: 'underline' }}
+            style={{ color: '#0284c7', textDecoration: 'underline' }}
           >
             Sau
           </Link>
         ) : (
-          <span style={{ color: '#888' }}>Sau</span>
+          <span style={{ color: '#94a3b8' }}>Sau</span>
         )}
       </div>
     </div>

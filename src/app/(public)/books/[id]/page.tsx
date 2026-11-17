@@ -44,26 +44,39 @@ export default async function BookDetailPage({ params }: BookDetailPageProps) {
   const updateTime = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 
   return (
-    <div style={{ padding: '20px 0' }}>
-      <h1>{book.title}</h1>
-      <div style={{ marginTop: '16px', lineHeight: '1.8' }}>
+    <div
+      style={{
+        backgroundColor: '#ffffff',
+        borderRadius: '10px',
+        border: '1px solid #cbd5e1',
+        padding: '32px',
+        maxWidth: '750px',
+        margin: '20px auto',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+      }}
+    >
+      <h1 style={{ color: '#0f172a', marginBottom: '20px', fontSize: '1.8rem' }}>{book.title}</h1>
+
+      <div style={{ lineHeight: '2', fontSize: '1.05rem', color: '#334155' }}>
         <p><strong>Tác giả:</strong> {book.author}</p>
         <p><strong>Chuyên mục:</strong> {book.category}</p>
         <p><strong>Số bản:</strong> {book.copies}</p>
         <p><strong>Cập nhật lúc:</strong> {updateTime}</p>
       </div>
 
-      <div style={{ marginTop: '24px' }}>
+      <div style={{ marginTop: '28px' }}>
         <Link
           href={`/loans?book=${book.id}`}
           style={{
             display: 'inline-block',
-            padding: '8px 16px',
-            backgroundColor: '#28a745',
-            color: '#fff',
+            padding: '10px 22px',
+            backgroundColor: '#16a34a',
+            color: '#ffffff',
             textDecoration: 'none',
-            borderRadius: '4px',
-            fontWeight: 500,
+            borderRadius: '6px',
+            fontWeight: 600,
+            fontSize: '1rem',
+            boxShadow: '0 2px 4px rgba(22, 163, 74, 0.3)',
           }}
         >
           Mượn sách này
