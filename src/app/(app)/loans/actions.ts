@@ -3,9 +3,13 @@
 import { auth } from '@/auth';
 import { can } from '@/lib/permissions';
 import { db } from '@/lib/db';
-import { toLoanData, toLoanInput, validateLoan } from '@/lib/loan-validate';
-import type { LoanFormState } from '@/lib/loan-validate';
-import { cancelLoan, submitLoan } from '@/lib/loans';
+import {
+  toLoanInput,
+  validateLoan,
+  toLoanData,
+  type LoanFormState,
+} from '@/lib/loan-validate';
+import { submitLoan, cancelLoan } from '@/lib/loans';
 import { revalidatePath } from 'next/cache';
 
 export async function createLoanAction(
@@ -16,7 +20,7 @@ export async function createLoanAction(
   const role = session?.user?.role;
   const userEmail = session?.user?.email;
 
-  if (!userEmail || !can(role, 'loan:create')) {
+  if (!can(role, 'loan:create') || !userEmail) {
     throw new Error('Không có quyền');
   }
 
@@ -31,8 +35,8 @@ export async function createLoanAction(
     };
   }
 
-  const loanData = toLoanData(input);
-  const result = submitLoan(userEmail, loanData);
+  const data = toLoanData(input);
+  const result = submitLoan(userEmail, data);
 
   if (!result.ok) {
     return {
@@ -44,6 +48,7 @@ export async function createLoanAction(
   }
 
   revalidatePath('/loans');
+
   return {
     errors: {},
     values: {},
@@ -52,7 +57,7 @@ export async function createLoanAction(
   };
 }
 
-export async function cancelLoanAction(id: number) {
+export async function cancelLoanAction(id: number): Promise<void> {
   const session = await auth();
   const userEmail = session?.user?.email;
 
